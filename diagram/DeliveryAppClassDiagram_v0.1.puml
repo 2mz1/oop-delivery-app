@@ -1,0 +1,58 @@
+@startuml
+class OrderAgency
+
+namespace Mingsicogi #DDDDDD {
+    interface ReceivedWay
+    class Delivery
+    class Takeout
+    class DineIn
+}
+
+namespace pursue503 #DDDDDD {
+    class Order
+}
+
+namespace gngsn #DDDDDD {
+    class Product
+
+    interface OptionGroup {
+        getTotalCost()
+    }
+
+    abstract class Option {
+        getCost()
+    }
+
+    class SignleSelectOptionGroup
+    class MultiSelectOptionGroup {
+     LimitAmount
+    }
+
+    abstract class LimitAmount {
+        isSatisfied()
+    }
+    class MaxLimitAmount
+    class MinLimitAmount
+}
+
+ReceivedWay <- Order: 제공 형태를 결정하라
+Order -> Product: 계산하라
+
+Order <--- OrderAgency: 주문하라
+
+ReceivedWay -[dotted]-> Delivery
+ReceivedWay -[dotted]-> Takeout
+ReceivedWay -[dotted]-> DineIn
+
+Product -> OptionGroup: 추가 옵션 비용을 구하라
+OptionGroup -> Option: 선택된 총 옵션 비용을 구하라
+OptionGroup -[dotted]-> MultiSelectOptionGroup
+OptionGroup -[dotted]-> SignleSelectOptionGroup
+
+MultiSelectOptionGroup -[dotted]-> LimitAmount: 제한된 옵션 선택 조건이\n만족하는지 확인하라
+
+
+LimitAmount -[dotted]-> MaxLimitAmount
+LimitAmount -[dotted]-> MinLimitAmount
+
+@enduml
