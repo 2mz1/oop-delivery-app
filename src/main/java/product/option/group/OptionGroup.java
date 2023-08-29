@@ -8,4 +8,7 @@ import java.math.BigDecimal;
 public interface OptionGroup {
 
     BigDecimal getTotalCost();
+    void selectOption(Long optionId);
+
+
 }
