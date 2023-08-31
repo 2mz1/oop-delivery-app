@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface OptionGroup {
 
-    Integer getId();
+    Long getId();
     List<Option> getOptions();
     BigDecimal getTotalCost();
-    void selectOne(Integer optionId);
-    void deselectOne(Integer optionId);
+    void selectOne(Long optionId);
+    void deselectOne(Long optionId);
 }

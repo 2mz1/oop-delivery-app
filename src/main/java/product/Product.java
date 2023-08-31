@@ -35,7 +35,7 @@ public class Product {
         return name;
     }
 
-    public void addOption(Integer optionGroupId, Integer optionId) {
+    public void addOption(Long optionGroupId, Long optionId) {
         optionGroups.stream()
                 .filter(optionGroup -> optionGroup.getId().equals(optionGroupId))
                 .findFirst()

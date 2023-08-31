@@ -15,9 +15,9 @@ import java.util.List;
 public class MultipleOptionGroup extends AbstractOptionGroup {
     private final String name;
     private final LimitAmount limitAmount;
-    private List<Integer> selectedIdList;
+    private List<Long> selectedIdList;
 
-    public MultipleOptionGroup(Integer optionGroupId, String name, LimitAmount limitAmount, List<Option> options) {
+    public MultipleOptionGroup(Long optionGroupId, String name, LimitAmount limitAmount, List<Option> options) {
         super(optionGroupId, options);
 
         if (!limitAmount.isSatisfied(options.size())) {
@@ -46,12 +46,12 @@ public class MultipleOptionGroup extends AbstractOptionGroup {
 
 
     @Override
-    public void selectOne(Integer optionId) {
+    public void selectOne(Long optionId) {
         selectedIdList.add(optionId);
     }
 
     @Override
-    public void deselectOne(Integer optionId) {
+    public void deselectOne(Long optionId) {
         selectedIdList.remove(optionId);
     }
 }

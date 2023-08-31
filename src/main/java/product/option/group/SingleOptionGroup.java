@@ -4,21 +4,22 @@ import product.option.Option;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Single Selectable Option Group
  * - 단일 옵션을 선택하는 옵션 그룹
  */
 public class SingleOptionGroup extends AbstractOptionGroup {
-    int CHOICE_NOTHING = -1;
+    static public final Long CHOICE_NONE = -1L;
 
     private final String name;
-    private Integer selectedId;
+    private Long selectedId;
 
-    public SingleOptionGroup(Integer optionGroupId, String name, List<Option> options) {
+    public SingleOptionGroup(Long optionGroupId, String name, List<Option> options) {
         super(optionGroupId, options);
         this.name = name;
-        this.selectedId = CHOICE_NOTHING;
+        this.selectedId = CHOICE_NONE;
     }
 
     public String getName() {
@@ -27,7 +28,7 @@ public class SingleOptionGroup extends AbstractOptionGroup {
 
     @Override
     public BigDecimal getTotalCost()  {
-        if (selectedId == CHOICE_NOTHING) return BigDecimal.ZERO;
+        if (Objects.equals(selectedId, CHOICE_NONE)) return BigDecimal.ZERO;
 
         return options.stream()
                 .filter(o -> o.getId().equals(selectedId))
@@ -36,12 +37,12 @@ public class SingleOptionGroup extends AbstractOptionGroup {
     }
 
     @Override
-    public void selectOne(Integer optionId) {
+    public void selectOne(Long optionId) {
         this.selectedId = optionId;
     }
 
     @Override
-    public void deselectOne(Integer optionId) {
-        this.selectedId = CHOICE_NOTHING;
+    public void deselectOne(Long optionId) {
+        this.selectedId = CHOICE_NONE;
     }
 }

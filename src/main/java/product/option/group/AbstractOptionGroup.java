@@ -10,17 +10,17 @@ import java.util.List;
  */
 public abstract class AbstractOptionGroup implements OptionGroup {
 
-    protected final Integer optionGroupId;
+    protected final Long optionGroupId;
     protected List<Option> options;
 
-    public AbstractOptionGroup(Integer optionGroupId, List<Option> options) {
+    public AbstractOptionGroup(Long optionGroupId, List<Option> options) {
         assert !options.isEmpty();
         this.optionGroupId = optionGroupId;
         this.options = options;
     }
 
     @Override
-    public Integer getId() {
+    public Long getId() {
         return optionGroupId;
     }
 
@@ -30,6 +30,6 @@ public abstract class AbstractOptionGroup implements OptionGroup {
     }
 
     public abstract BigDecimal getTotalCost();
-    public abstract void selectOne(Integer optionId);
-    public abstract void deselectOne(Integer optionId);
+    public abstract void selectOne(Long optionId);
+    public abstract void deselectOne(Long optionId);
 }
