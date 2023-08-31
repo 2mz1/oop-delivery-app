@@ -11,7 +11,7 @@ import java.util.Objects;
  * - 단일 옵션을 선택하는 옵션 그룹
  */
 public class SingleOptionGroup extends AbstractOptionGroup {
-    static public final Long CHOICE_NONE = -1L;
+    public static final Long CHOICE_NONE = -1L;
 
     private final String name;
     private Long selectedId;
