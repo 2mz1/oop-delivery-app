@@ -1,12 +1,14 @@
 package product.option.group;
 
+import exception.AlreadySelectedOptionException;
 import exception.InvalidLimitAmountException;
 import product.condition.amount.LimitAmount;
 import product.option.Option;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Multiple Selectable Option Group
@@ -15,24 +17,27 @@ import java.util.List;
 public class MultipleOptionGroup extends AbstractOptionGroup {
     private final String name;
     private final LimitAmount limitAmount;
-    private List<Long> selectedIdList;
+    private final Set<Long> selectedIdList;
 
     public MultipleOptionGroup(Long optionGroupId, String name, LimitAmount limitAmount, List<Option> options) {
         super(optionGroupId, options);
 
-        if (!limitAmount.isSatisfied(options.size())) {
-            throw new InvalidLimitAmountException("cannot add option by limit condition");
-        }
-
         this.name = name;
         this.limitAmount = limitAmount;
-        this.selectedIdList = new ArrayList<>();
+        this.selectedIdList = new HashSet<>();
+
+        checkLimitedAmount();
     }
 
     public String getName() {
         return name;
     }
 
+    private void checkLimitedAmount() {
+        if (!limitAmount.isSatisfied(options.size())) {
+            throw new InvalidLimitAmountException("cannot add option by limit condition");
+        }
+    }
 
     @Override
     public BigDecimal getTotalCost()  {
@@ -47,6 +52,11 @@ public class MultipleOptionGroup extends AbstractOptionGroup {
 
     @Override
     public void selectOne(Long optionId) {
+        if (selectedIdList.contains(optionId))
+            throw new AlreadySelectedOptionException();
+
+        checkLimitedAmount();
+
         selectedIdList.add(optionId);
     }
 
