@@ -18,21 +18,21 @@ public class Product {
     private Long id;
     private String name;
     private String desc;
-    private List<OptionGroup> options = new ArrayList<>();
+    private List<OptionGroup> optionGroups = new ArrayList<>();
     private BigDecimal price;
 
     public Product(String name, String desc, BigDecimal price, List<OptionGroup> options) {
         this.name = name;
         this.desc = desc;
         this.price = price;
-        this.options.addAll(options);
+        this.optionGroups.addAll(options);
     }
 
     public BigDecimal getTotalCost() {
         BigDecimal total = price;
 
-        for (OptionGroup option: options) {
-            total = total.add(option.getTotalCost());
+        for (OptionGroup optionGroup: optionGroups) {
+            total = total.add(optionGroup.getTotalCost());
         }
 
         return total;
