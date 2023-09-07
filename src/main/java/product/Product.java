@@ -41,5 +41,13 @@ public class Product {
     public String getName() {
         return name;
     }
+
+    public void addOption(Long optionGroupId, Long optionId) {
+        optionGroups.stream()
+                .filter(optionGroup -> optionGroup.getId().equals(optionGroupId))
+                .findFirst()
+                .orElseThrow()
+                .selectOne(optionId);
+    }
 }
 
